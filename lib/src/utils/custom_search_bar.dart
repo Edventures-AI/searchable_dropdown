@@ -51,6 +51,7 @@ class CustomSearchBar extends StatelessWidget {
                 onChangeComplete: onChangeComplete,
                 changeCompletionDelay: changeCompletionDelay,
                 hintText: hintText,
+                hintStyle: hintStyle,
                 leadingIcon: leadingIcon,
                 focusNode: focusNode,
                 controller: controller,
@@ -66,6 +67,7 @@ class CustomSearchBar extends StatelessWidget {
                 onChangeComplete: onChangeComplete,
                 changeCompletionDelay: changeCompletionDelay,
                 hintText: hintText,
+                hintStyle: hintStyle,
                 leadingIcon: leadingIcon,
                 focusNode: focusNode,
                 controller: controller,
@@ -109,6 +111,7 @@ class _SearchBarTextField extends StatelessWidget {
       );
     }
 
+    print(hintStyle ?? "NOPE");
     return Padding(
       padding: const EdgeInsets.all(8),
       child: TextField(
