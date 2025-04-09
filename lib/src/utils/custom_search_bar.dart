@@ -9,6 +9,7 @@ class CustomSearchBar extends StatelessWidget {
     this.onChangeComplete,
     this.changeCompletionDelay = const Duration(milliseconds: 800),
     this.hintText,
+    this.hintStyle,
     this.leadingIcon,
     this.isOutlined = false,
     this.focusNode,
@@ -21,6 +22,7 @@ class CustomSearchBar extends StatelessWidget {
   final Duration changeCompletionDelay;
   final FocusNode? focusNode;
   final String? hintText;
+  final TextStyle? hintStyle;
   final TextEditingController? controller;
   final TextStyle? style;
 
@@ -79,6 +81,7 @@ class _SearchBarTextField extends StatelessWidget {
     this.onChangeComplete,
     this.changeCompletionDelay = const Duration(milliseconds: 800),
     this.hintText,
+    this.hintStyle,
     this.leadingIcon,
     this.focusNode,
     this.controller,
@@ -88,6 +91,7 @@ class _SearchBarTextField extends StatelessWidget {
   final Duration changeCompletionDelay;
   final FocusNode? focusNode;
   final String? hintText;
+  final TextStyle? hintStyle;
   final TextEditingController? controller;
   final TextStyle? style;
   final void Function(String value)? onChangeComplete;
@@ -121,7 +125,10 @@ class _SearchBarTextField extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.zero,
           isDense: true,
+          hintStyle: hintStyle,
+          enabledBorder: InputBorder.none,
           border: InputBorder.none,
+          focusedBorder: InputBorder.none,
           hintText: hintText,
           icon: leadingIcon,
         ),

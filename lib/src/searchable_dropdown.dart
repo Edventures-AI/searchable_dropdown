@@ -13,6 +13,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     Key? key,
     SearchableDropdownController<T>? controller,
     Widget? hintText,
+    TextStyle? searchHintStyle,
     Widget Function(Widget)? backgroundDecoration,
     String? searchHintText,
     Widget? noRecordText,
@@ -38,6 +39,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           controller: controller,
           backgroundDecoration: backgroundDecoration,
           searchHintText: searchHintText,
+          searchHintStyle: searchHintStyle,
           noRecordText: noRecordText,
           dropDownMaxHeight: dropDownMaxHeight,
           margin: margin,
@@ -69,6 +71,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     Widget? hintText,
     Widget Function(Widget)? backgroundDecoration,
     String? searchHintText,
+    TextStyle? searchHintStyle,
     Widget? noRecordText,
     double? dropDownMaxHeight,
     EdgeInsetsGeometry? margin,
@@ -92,6 +95,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           paginatedRequest: paginatedRequest,
           requestItemCount: requestItemCount,
           hintText: hintText,
+          searchHintStyle: searchHintStyle,
           backgroundDecoration: backgroundDecoration,
           searchHintText: searchHintText,
           noRecordText: noRecordText,
@@ -170,6 +174,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.hintText,
     this.backgroundDecoration,
     this.searchHintText,
+    this.searchHintStyle,
     this.noRecordText,
     this.dropDownMaxHeight,
     this.margin,
@@ -239,6 +244,10 @@ class SearchableDropdown<T> extends StatefulWidget {
 
   /// SearchBar hint text.
   final String? searchHintText;
+
+  /// SearchBar hint text style.
+  final TextStyle? searchHintStyle;
+
   //Initial value of dropdown
   final T? initialValue;
 
@@ -327,6 +336,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       onChanged: widget.onChanged,
       paginatedRequest: widget.paginatedRequest,
       searchHintText: widget.searchHintText,
+      searchHintStyle: widget.searchHintStyle,
       trailingIcon: widget.trailingIcon,
       trailingClearIcon: widget.trailingClearIcon,
       changeCompletionDelay: widget.changeCompletionDelay,
@@ -364,6 +374,7 @@ class _DropDown<T> extends StatelessWidget {
     this.noRecordText,
     this.onChanged,
     this.searchHintText,
+    this.searchHintStyle,
     this.changeCompletionDelay,
     this.hasTrailingClearIcon = true,
   });
@@ -382,6 +393,7 @@ class _DropDown<T> extends StatelessWidget {
   )? paginatedRequest;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
+  final TextStyle? searchHintStyle;
   final VoidCallback? disabledOnTap;
   final VoidCallback? onDismissDropdown;
   final VoidCallback? onShowDropdown;
@@ -527,6 +539,7 @@ class _DropDown<T> extends StatelessWidget {
                   onChanged: onChanged,
                   paginatedRequest: paginatedRequest,
                   searchHintText: searchHintText,
+                  searchHintStyle: searchHintStyle,
                   changeCompletionDelay: changeCompletionDelay,
                 ),
               ),
@@ -571,6 +584,7 @@ class _DropDownCard<T> extends StatelessWidget {
     required this.controller,
     required this.isReversed,
     this.searchHintText,
+    this.searchHintStyle,
     this.paginatedRequest,
     this.onChanged,
     this.noRecordText,
@@ -585,6 +599,7 @@ class _DropDownCard<T> extends StatelessWidget {
   )? paginatedRequest;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
+  final TextStyle? searchHintStyle;
   final void Function(T? value)? onChanged;
   final Widget? noRecordText;
 
@@ -610,6 +625,7 @@ class _DropDownCard<T> extends StatelessWidget {
                   _DropDownSearchBar(
                     controller: controller,
                     searchHintText: searchHintText,
+                    searchHintStyle: searchHintStyle,
                     changeCompletionDelay: changeCompletionDelay,
                   ),
                   Flexible(
@@ -635,11 +651,13 @@ class _DropDownSearchBar<T> extends StatelessWidget {
   const _DropDownSearchBar({
     required this.controller,
     this.searchHintText,
+    this.searchHintStyle,
     this.changeCompletionDelay,
   });
   final Duration? changeCompletionDelay;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
+  final TextStyle? searchHintStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -649,6 +667,7 @@ class _DropDownSearchBar<T> extends StatelessWidget {
         changeCompletionDelay:
             changeCompletionDelay ?? const Duration(milliseconds: 200),
         hintText: searchHintText ?? 'Search',
+        hintStyle: searchHintStyle ?? const TextStyle(fontSize: 14),
         isOutlined: true,
         leadingIcon: const Icon(Icons.search, size: 24),
         onChangeComplete: (value) {
