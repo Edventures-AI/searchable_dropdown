@@ -35,45 +35,26 @@ class CustomSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final myFocusNode = focusNode ?? FocusNode();
 
-    return CustomInkwell(
-      padding: EdgeInsets.zero,
-      disableTabEffect: true,
-      onTap: myFocusNode.requestFocus,
-      child: isOutlined
-          ? DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                border: Border.all(
-                  color: (style?.color ?? Colors.black).withOpacity(0.5),
-                ),
-              ),
-              child: _SearchBarTextField(
-                onChangeComplete: onChangeComplete,
-                changeCompletionDelay: changeCompletionDelay,
-                hintText: hintText,
-                hintStyle: hintStyle,
-                leadingIcon: leadingIcon,
-                focusNode: focusNode,
-                controller: controller,
-                style: style,
-              ),
-            )
-          : Card(
-              margin: EdgeInsets.zero,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-              child: _SearchBarTextField(
-                onChangeComplete: onChangeComplete,
-                changeCompletionDelay: changeCompletionDelay,
-                hintText: hintText,
-                hintStyle: hintStyle,
-                leadingIcon: leadingIcon,
-                focusNode: focusNode,
-                controller: controller,
-                style: style,
-              ),
-            ),
+    return isOutlined
+        ? _SearchBarTextField(
+      onChangeComplete: onChangeComplete,
+      changeCompletionDelay: changeCompletionDelay,
+      hintText: hintText,
+      hintStyle: hintStyle,
+      leadingIcon: leadingIcon,
+      focusNode: focusNode,
+      controller: controller,
+      style: style,
+    )
+        : _SearchBarTextField(
+      onChangeComplete: onChangeComplete,
+      changeCompletionDelay: changeCompletionDelay,
+      hintText: hintText,
+      hintStyle: hintStyle,
+      leadingIcon: leadingIcon,
+      focusNode: focusNode,
+      controller: controller,
+      style: style,
     );
   }
 }
@@ -111,10 +92,11 @@ class _SearchBarTextField extends StatelessWidget {
       );
     }
 
-    print(hintStyle ?? "NOPE");
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: TextField(
+    return Container(
+      margin: const EdgeInsets.only(top: 8, right: 12, left: 12),
+      height: 70,
+      padding: const EdgeInsets.all(12),
+      child: TextFormField(
         controller: controller,
         focusNode: focusNode,
         onChanged: (value) async {
@@ -126,14 +108,21 @@ class _SearchBarTextField extends StatelessWidget {
         },
         style: style,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.zero,
-          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           hintStyle: hintStyle,
-          enabledBorder: InputBorder.none,
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!, width: 1.5),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[300]!, width: 1.5),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide:  BorderSide(color: Colors.grey[300]!, width: 1.5),
+            borderRadius: BorderRadius.circular(5),
+          ),
           hintText: hintText,
-          icon: leadingIcon,
         ),
       ),
     );
