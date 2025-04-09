@@ -33,6 +33,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     bool isDialogExpanded = true,
     bool hasTrailingClearIcon = true,
     double? dialogOffset,
+    Color? backgroundColor,
   }) : this._(
           key: key,
           hintText: hintText,
@@ -57,6 +58,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           isDialogExpanded: isDialogExpanded,
           hasTrailingClearIcon: hasTrailingClearIcon,
           dialogOffset: dialogOffset,
+          backgroundColor: backgroundColor,
         );
 
   const SearchableDropdown.paginated({
@@ -89,6 +91,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     bool hasTrailingClearIcon = true,
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
+    Color? backgroundColor,
   }) : this._(
           key: key,
           controller: controller,
@@ -115,6 +118,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           hasTrailingClearIcon: hasTrailingClearIcon,
           initialFutureValue: initialValue,
           dialogOffset: dialogOffset,
+          backgroundColor: backgroundColor,
         );
 
   const SearchableDropdown.future({
@@ -142,6 +146,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     bool hasTrailingClearIcon = true,
     SearchableDropdownMenuItem<T>? initialValue,
     double? dialogOffset,
+    Color? backgroundColor,
   }) : this._(
           futureRequest: futureRequest,
           key: key,
@@ -166,6 +171,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           hasTrailingClearIcon: hasTrailingClearIcon,
           initialFutureValue: initialValue,
           dialogOffset: dialogOffset,
+          backgroundColor: backgroundColor,
         );
 
   const SearchableDropdown._({
@@ -197,6 +203,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.isDialogExpanded = true,
     this.hasTrailingClearIcon = true,
     this.dialogOffset,
+    this.backgroundColor
   });
 
   //Is dropdown enabled
@@ -278,6 +285,9 @@ class SearchableDropdown<T> extends StatefulWidget {
   /// Dropdown trailing icon.
   final Widget? leadingIcon;
 
+  /// Dropdown background color.
+  final Color? backgroundColor;
+
   /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
 
@@ -343,6 +353,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       isDialogExpanded: widget.isDialogExpanded,
       hasTrailingClearIcon: widget.hasTrailingClearIcon,
       dialogOffset: widget.dialogOffset ?? 35,
+      backgroundColor: widget.backgroundColor ?? Colors.white,
     );
 
     return SizedBox(
@@ -377,6 +388,7 @@ class _DropDown<T> extends StatelessWidget {
     this.searchHintStyle,
     this.changeCompletionDelay,
     this.hasTrailingClearIcon = true,
+    this.backgroundColor,
   });
 
   final bool isEnabled;
@@ -403,6 +415,7 @@ class _DropDown<T> extends StatelessWidget {
   final Widget? leadingIcon;
   final Widget? hintText;
   final Widget? noRecordText;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -541,6 +554,7 @@ class _DropDown<T> extends StatelessWidget {
                   searchHintText: searchHintText,
                   searchHintStyle: searchHintStyle,
                   changeCompletionDelay: changeCompletionDelay,
+                  backgroundColor: backgroundColor,
                 ),
               ),
             ],
@@ -589,6 +603,7 @@ class _DropDownCard<T> extends StatelessWidget {
     this.onChanged,
     this.noRecordText,
     this.changeCompletionDelay,
+    this.backgroundColor,
   });
 
   final bool isReversed;
@@ -602,6 +617,7 @@ class _DropDownCard<T> extends StatelessWidget {
   final TextStyle? searchHintStyle;
   final void Function(T? value)? onChanged;
   final Widget? noRecordText;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -611,6 +627,7 @@ class _DropDownCard<T> extends StatelessWidget {
       children: [
         Flexible(
           child: Card(
+            color: backgroundColor,
             margin: EdgeInsets.zero,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)),
