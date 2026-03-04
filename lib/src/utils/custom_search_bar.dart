@@ -15,10 +15,12 @@ class CustomSearchBar extends StatelessWidget {
     this.focusNode,
     this.controller,
     this.style,
+    this.autofocus = false,
   });
 
   /// Klavyeden değer girme işlemi bittikten kaç milisaniye sonra on change complete fonksiyonunun tetikleneceğini belirler.
   final bool isOutlined;
+  final bool autofocus;
   final Duration changeCompletionDelay;
   final FocusNode? focusNode;
   final String? hintText;
@@ -37,25 +39,27 @@ class CustomSearchBar extends StatelessWidget {
 
     return isOutlined
         ? _SearchBarTextField(
-      onChangeComplete: onChangeComplete,
-      changeCompletionDelay: changeCompletionDelay,
-      hintText: hintText,
-      hintStyle: hintStyle,
-      leadingIcon: leadingIcon,
-      focusNode: focusNode,
-      controller: controller,
-      style: style,
-    )
+            onChangeComplete: onChangeComplete,
+            changeCompletionDelay: changeCompletionDelay,
+            hintText: hintText,
+            hintStyle: hintStyle,
+            leadingIcon: leadingIcon,
+            focusNode: focusNode,
+            controller: controller,
+            style: style,
+            autofocus: autofocus,
+          )
         : _SearchBarTextField(
-      onChangeComplete: onChangeComplete,
-      changeCompletionDelay: changeCompletionDelay,
-      hintText: hintText,
-      hintStyle: hintStyle,
-      leadingIcon: leadingIcon,
-      focusNode: focusNode,
-      controller: controller,
-      style: style,
-    );
+            onChangeComplete: onChangeComplete,
+            changeCompletionDelay: changeCompletionDelay,
+            hintText: hintText,
+            hintStyle: hintStyle,
+            leadingIcon: leadingIcon,
+            focusNode: focusNode,
+            controller: controller,
+            style: style,
+            autofocus: autofocus,
+          );
   }
 }
 
@@ -69,9 +73,11 @@ class _SearchBarTextField extends StatelessWidget {
     this.focusNode,
     this.controller,
     this.style,
+    this.autofocus = false,
   });
 
   final Duration changeCompletionDelay;
+  final bool autofocus;
   final FocusNode? focusNode;
   final String? hintText;
   final TextStyle? hintStyle;
@@ -99,6 +105,7 @@ class _SearchBarTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
+        autofocus: autofocus,
         onChanged: (value) async {
           await cancelableOperation?.cancel();
           startCancelableOperation();
@@ -119,7 +126,7 @@ class _SearchBarTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide:  BorderSide(color: Colors.grey[300]!, width: 1.5),
+            borderSide: BorderSide(color: Colors.grey[300]!, width: 1.5),
             borderRadius: BorderRadius.circular(5),
           ),
           hintText: hintText,

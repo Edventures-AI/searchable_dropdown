@@ -35,6 +35,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     double? dialogOffset,
     Color? backgroundColor,
     TextStyle? itemStyle,
+    bool autofocusSearchField = false,
   }) : this._(
           key: key,
           hintText: hintText,
@@ -61,6 +62,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           dialogOffset: dialogOffset,
           backgroundColor: backgroundColor,
           itemStyle: itemStyle,
+          autofocusSearchField: autofocusSearchField,
         );
 
   const SearchableDropdown.paginated({
@@ -94,6 +96,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     double? dialogOffset,
     Color? backgroundColor,
     TextStyle? itemStyle,
+    bool autofocusSearchField = false,
   }) : this._(
           key: key,
           controller: controller,
@@ -122,6 +125,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           dialogOffset: dialogOffset,
           backgroundColor: backgroundColor,
           itemStyle: itemStyle,
+          autofocusSearchField: autofocusSearchField,
         );
 
   const SearchableDropdown.future({
@@ -150,6 +154,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     double? dialogOffset,
     Color? backgroundColor,
     TextStyle? itemStyle,
+    bool autofocusSearchField = false,
   }) : this._(
           futureRequest: futureRequest,
           key: key,
@@ -176,40 +181,42 @@ class SearchableDropdown<T> extends StatefulWidget {
           dialogOffset: dialogOffset,
           backgroundColor: backgroundColor,
           itemStyle: itemStyle,
+          autofocusSearchField: autofocusSearchField,
         );
 
-  const SearchableDropdown._(
-      {super.key,
-      this.controller,
-      this.hintText,
-      this.backgroundDecoration,
-      this.searchHintText,
-      this.searchHintStyle,
-      this.noRecordText,
-      this.dropDownMaxHeight,
-      this.margin,
-      this.trailingIcon,
-      this.trailingClearIcon,
-      this.leadingIcon,
-      this.onChanged,
-      this.items,
-      this.initialValue,
-      this.initialFutureValue,
-      this.isEnabled = true,
-      this.disabledOnTap,
-      this.onDismissDropdown,
-      this.onShowDropdown,
-      this.futureRequest,
-      this.paginatedRequest,
-      this.requestItemCount,
-      this.changeCompletionDelay,
-      this.width,
-      this.isDialogExpanded = true,
-      this.hasTrailingClearIcon = true,
-      this.dialogOffset,
-      this.backgroundColor,
-      this.itemStyle,
-      });
+  const SearchableDropdown._({
+    super.key,
+    this.controller,
+    this.hintText,
+    this.backgroundDecoration,
+    this.searchHintText,
+    this.searchHintStyle,
+    this.noRecordText,
+    this.dropDownMaxHeight,
+    this.margin,
+    this.trailingIcon,
+    this.trailingClearIcon,
+    this.leadingIcon,
+    this.onChanged,
+    this.items,
+    this.initialValue,
+    this.initialFutureValue,
+    this.isEnabled = true,
+    this.disabledOnTap,
+    this.onDismissDropdown,
+    this.onShowDropdown,
+    this.futureRequest,
+    this.paginatedRequest,
+    this.requestItemCount,
+    this.changeCompletionDelay,
+    this.width,
+    this.isDialogExpanded = true,
+    this.hasTrailingClearIcon = true,
+    this.dialogOffset,
+    this.backgroundColor,
+    this.itemStyle,
+    this.autofocusSearchField = false,
+  });
 
   //Is dropdown enabled
   final bool isEnabled;
@@ -296,6 +303,9 @@ class SearchableDropdown<T> extends StatefulWidget {
   /// TextStyle of dropdown item.
   final TextStyle? itemStyle;
 
+  /// Auto-focus the search text field when dropdown is opened.
+  final bool autofocusSearchField;
+
   /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
 
@@ -363,6 +373,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       dialogOffset: widget.dialogOffset ?? 35,
       backgroundColor: widget.backgroundColor ?? Colors.white,
       itemStyle: widget.itemStyle,
+      autofocusSearchField: widget.autofocusSearchField,
     );
 
     return SizedBox(
@@ -398,11 +409,13 @@ class _DropDown<T> extends StatelessWidget {
     this.hasTrailingClearIcon = true,
     this.backgroundColor,
     this.itemStyle,
+    this.autofocusSearchField = false,
   });
 
   final bool isEnabled;
   final bool isDialogExpanded;
   final bool hasTrailingClearIcon;
+  final bool autofocusSearchField;
   final double? dropDownMaxHeight;
   final double dialogOffset;
   final Duration? changeCompletionDelay;
@@ -558,6 +571,7 @@ class _DropDown<T> extends StatelessWidget {
                   changeCompletionDelay: changeCompletionDelay,
                   backgroundColor: backgroundColor,
                   itemStyle: itemStyle,
+                  autofocusSearchField: autofocusSearchField,
                 ),
               ),
             ],
@@ -608,9 +622,11 @@ class _DropDownCard<T> extends StatelessWidget {
     this.changeCompletionDelay,
     this.backgroundColor,
     this.itemStyle,
+    this.autofocusSearchField = false,
   });
 
   final bool isReversed;
+  final bool autofocusSearchField;
   final Duration? changeCompletionDelay;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function(
     int page,
@@ -646,6 +662,7 @@ class _DropDownCard<T> extends StatelessWidget {
                     searchHintText: searchHintText,
                     searchHintStyle: searchHintStyle,
                     changeCompletionDelay: changeCompletionDelay,
+                    autofocusSearchField: autofocusSearchField,
                   ),
                   const SizedBox(height: 8),
                   Flexible(
@@ -674,9 +691,11 @@ class _DropDownSearchBar<T> extends StatelessWidget {
     this.searchHintText,
     this.searchHintStyle,
     this.changeCompletionDelay,
+    this.autofocusSearchField = false,
   });
 
   final Duration? changeCompletionDelay;
+  final bool autofocusSearchField;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
   final TextStyle? searchHintStyle;
@@ -687,6 +706,7 @@ class _DropDownSearchBar<T> extends StatelessWidget {
       changeCompletionDelay: changeCompletionDelay ?? const Duration(milliseconds: 200),
       hintText: searchHintText ?? 'Search',
       hintStyle: searchHintStyle ?? const TextStyle(fontSize: 14),
+      autofocus: autofocusSearchField,
       onChangeComplete: (value) {
         controller.searchText = value;
         if (controller.items != null) {
